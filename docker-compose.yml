@@ -1,0 +1,6 @@
+services:
+  broker-service:
+    image: ghcr.io/mcp-bank/broker-service:latest
+    working_dir: /www/app
+    ports:
+      - "50051:50051"
