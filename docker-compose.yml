@@ -1,11 +1,11 @@
 services:
   broker-service:
     image: ghcr.io/mcp-bank/broker-service:latest
-    working_dir: /www/app
     ports:
       - "50051:50051"
   mcp-server:
     image: ghcr.io/mcp-bank/mcp-server:latest
-    working_dir: /www/app
     ports:
       - "8080:8080"
+    depends_on:
+      - broker-service
