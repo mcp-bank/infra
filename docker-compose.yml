@@ -10,5 +10,21 @@ services:
     depends_on:
       - broker-service
       - cache
+      - message-broker
   cache:
     image: redis:alpine
+  message-broker:
+    image: confluentinc/cp-kafka:7.4.0
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://message-broker:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://message-broker:9092
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@message-broker:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+volumes:
+  kafka_data:
