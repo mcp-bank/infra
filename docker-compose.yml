@@ -11,6 +11,10 @@ services:
       - broker-service
       - cache
       - message-broker
+  notification-service:
+    image: ghcr.io/mcp-bank/notification-service:latest
+    depends_on:
+      - message-broker
   cache:
     image: redis:alpine
   message-broker:
